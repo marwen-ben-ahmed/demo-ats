@@ -18,3 +18,7 @@ Test this DNS in the browser
 
     http://demo.ats.lo/
 
+To run bin commands
+
+    docker exec -it demo-ats php bin/console << command >>
+

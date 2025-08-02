@@ -70,6 +70,10 @@ class UserController extends AbstractController
     {
         try {
             $user = $this->externalUserHttpService->getUser($id);
+
+            $this->userManager->createUser($user['email'], $user['name']);
+
+
             return $this->json($user);
         } catch (\RuntimeException $e) {
             return $this->json(['error' => $e->getMessage()], 502);
