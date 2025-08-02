@@ -1,0 +1,53 @@
+networks:
+  shared-network:
+
+services:
+  ftp-server:
+    image: stilliard/pure-ftpd:hardened
+    container_name: ftp-server
+    networks:
+      - shared-network
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009" # ports passifs FTP
+    environment:
+      PUBLICHOST: "ftp-server"
+      FTP_USER_NAME: "ftpuser"
+      FTP_USER_PASS: "ftppass"
+      FTP_USER_HOME: "/data/input/src"
+      FTP_PASSIVE_PORTS: "30000:30009"
+    volumes:
+      - ./ftpdata/data/input/src:/data/input/src
+    restart: unless-stopped
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SYMFONY_EN: dev
+    environment:
+      - SYMFONY_EN=dev
+      - APP_ENV=dev
+    container_name: demo-ats
+    networks:
+      - shared-network
+    depends_on:
+      - ftp-server
+    volumes:
+      - ./:/var/www/project/
+      - /var/www/project/vendor
+      - /var/www/project/var
+
+  nginx:
+    image: nginx:alpine
+    container_name: demo-ats-nginx
+    networks:
+      - shared-network
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www/project/
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
