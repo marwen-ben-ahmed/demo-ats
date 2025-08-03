@@ -20,5 +20,5 @@ Test this DNS in the browser
 
 To run bin commands
 
-    docker exec -it demo-ats php bin/console << command >>
+    docker exec -it demo-ats composer update api-platform/*
 

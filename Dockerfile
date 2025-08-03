@@ -7,6 +7,7 @@ ENV APP_ENV=${SYMFONY_EN}
 # 1. Update packages & install system dependencies
 RUN apt-get update && apt-get install -y \
     nginx ftp lftp unzip git \
+    libicu-dev && docker-php-ext-install intl \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. Install PHP extensions

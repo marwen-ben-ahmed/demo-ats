@@ -3,3 +3,19 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+home:
+    path: /home
+    controller: App\Controller\HomeController::bonjour
+
+goodbye:
+    path: /goodbye
+    controller: App\Controller\HomeController::aurevoir
+
+linkedin:
+    path: /linkedin
+    controller: App\Controller\HomeController::goToLinkedin
+
+base:
+    path: /base
+    controller: App\Controller\HomeController::renderBase
