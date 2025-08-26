@@ -84,14 +84,17 @@
 
 ### Que va afficher ce code ?
 
-    trait Logger {
-        public function log($m) { echo $m; }
-    }
-    class Service {
-        use Logger;
-    }
-    (new Service())->log("Hi");
+```php
+trait Logger {
+    public function log($m) { echo $m; }
+}
 
+class Service {
+    use Logger;
+}
+
+(new Service())->log("Hi");
+```
 
 * ✅ Hi
 * Erreur
@@ -109,15 +112,18 @@
 
 ### Dans ce code :
 
-    class A {
-        public static function who() { echo __CLASS__; }
-        public static function test() { static::who(); }
-    }
-    class B extends A {
-        public static function who() { echo __CLASS__; }
-    }
-    B::test();
+```php
+class A {
+    public static function who() { echo __CLASS__; }
+    public static function test() { static::who(); }
+}
 
+class B extends A {
+    public static function who() { echo __CLASS__; }
+}
+
+B::test();
+```
 
 ### Résultat ?
 
@@ -137,10 +143,11 @@
 
 ### Quel est le résultat ?
 
-    $nums = [1, 2, 3];
-    $r = array_map(fn($n) => $n*2, $nums);
-    print_r($r);
-
+```php
+$nums = [1, 2, 3];
+$r = array_map(fn($n) => $n*2, $nums);
+print_r($r);
+```
 
 * ✅ [2, 4, 6]
 * [1, 2, 3]
@@ -150,10 +157,11 @@
 
 ### Résultat ?
 
-    $nums = [1,2,3,4];
-    $r = array_filter($nums, fn($n) => $n%2===0);
-    print_r($r);
-
+```php
+$nums = [1,2,3,4];
+$r = array_filter($nums, fn($n) => $n%2===0);
+print_r($r);
+```
 
 * [2, 4] avec clés [1,3]
 * ✅ [2, 4] avec clés réindexées
@@ -171,12 +179,13 @@
 
 ### Quelle est la sortie ?
 
-    function gen() {
-        yield 1;
-        yield 2;
-    }
-    foreach(gen() as $v) echo $v;
-
+```php
+function gen() {
+    yield 1;
+    yield 2;
+}
+foreach(gen() as $v) echo $v;
+```
 
 * ✅ 12
 * 21
@@ -186,7 +195,9 @@
 
 ### Quel est le bon prototype ?
 
-    function sum(...$n) { return array_sum($n); }
+```php 
+function sum(...$n) { return array_sum($n); }
+```
 
 
 * sum([1,2,3]);
